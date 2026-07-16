@@ -1,0 +1,8 @@
+{
+  "name": "Temporistics - 時間旅行の診断",
+  "description": "時間（過去、現在、未来、永遠）をどう捉えるかを診断する体験型アプリです。",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
