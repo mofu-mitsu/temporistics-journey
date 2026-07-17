@@ -107,7 +107,7 @@ export default function TitleScene({ onNext }: Props) {
           type="text" 
           value={selfType}
           onChange={(e) => setSelfType(e.target.value)}
-          placeholder="自認タイプ (任意) 例: 1B2V3P4N"
+          placeholder="自認タイプ (任意)"
           className="w-full max-w-xs px-4 py-3 rounded-xl border border-slate-300 bg-white/60 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent text-sm text-center shadow-sm placeholder-slate-400"
         />
       </div>

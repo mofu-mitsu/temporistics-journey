@@ -1,12 +1,57 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { SceneProps } from '../../types';
 
+// 各状態ごとに、P・N·B・Vに対応した理由をオブジェクトの配列として持たせる！
 const STAGES = [
-  { icon: '🍏', label: 'まだ青い。', desc: 'これから成長する可能性' },
-  { icon: '🍋', label: '食べ頃。', desc: '今すぐ味わえる鮮度' },
-  { icon: '🍊', label: '完熟。', desc: '最も甘く熟したピーク' },
-  { icon: '🍂', label: '落ちた。', desc: '土に還り、種を残す' },
+  { 
+    icon: '🍏', 
+    label: 'まだ青い。', 
+    desc: 'これから成長する可能性',
+    reasons: [
+      { type: 'B', text: 'これからどう育つか未来が楽しみだから' },
+      { type: 'P', text: 'まだ何にも染まっていない原点が好きだから' },
+      { type: 'V', text: '未完成という普遍的な美しさがあるから' },
+      { type: 'N', text: '「今この瞬間」しか見られない青さだから' },
+      { type: null, text: 'なんとなく惹かれるから' },
+    ]
+  },
+  { 
+    icon: '🍋', 
+    label: '食べ頃。', 
+    desc: '今すぐ味わえる鮮度',
+    reasons: [
+      { type: 'N', text: '今すぐ食べるのに一番ベストな鮮度だから' },
+      { type: 'B', text: 'ここからさらに熟していく前兆の時期だから' },
+      { type: 'P', text: 'ちょうど良いところまで育ってきたから' },
+      { type: 'V', text: '全体的なバランスが完成されているから' },
+      { type: null, text: 'みみずみずしくて美味しそうだから' },
+    ]
+  },
+  { 
+    icon: '🍊', 
+    label: '完熟。', 
+    desc: '最も甘く熟したピーク',
+    reasons: [
+      { type: 'N', text: '今味わいたいから' },
+      { type: 'V', text: '完成形だと思うから' },
+      { type: 'B', text: '種を残したいから' },
+      { type: 'P', text: 'ここまで育った過程が好きだから' },
+      { type: null, text: '美味しそうだから' },
+    ]
+  },
+  { 
+    icon: '🍂', 
+    label: '落ちた。', 
+    desc: '土に還り、種を残す',
+    reasons: [
+      { type: 'B', text: '次の世代（未来）へ命を繋いでいるから' },
+      { type: 'P', text: '一つのサイクルを終えた歴史を感じるから' },
+      { type: 'V', text: '永遠の循環の一部として美しいから' },
+      { type: 'N', text: '今まさに自然に還る瞬間だから' },
+      { type: null, text: '哀愁があって惹かれるから' },
+    ]
+  },
 ];
 
 export default function FruitRipenScene({ onNext }: SceneProps) {
@@ -14,7 +59,6 @@ export default function FruitRipenScene({ onNext }: SceneProps) {
   const [phase, setPhase] = useState(0);
   const [submitted, setSubmitted] = useState(false);
 
-  // 0-25: 0, 26-50: 1, 51-75: 2, 76-100: 3
   const getStageIndex = (val: number) => {
     if (val < 25) return 0;
     if (val < 50) return 1;
@@ -33,7 +77,7 @@ export default function FruitRipenScene({ onNext }: SceneProps) {
     setSubmitted(true);
     setTimeout(() => {
       const scores = type ? { [type]: 30 } : {};
-      const typeLabel = type ? `(${type})` : '(判定なし)';
+      const typeLabel = type ? `(${type}) `: '(判定なし)';
       onNext(
         scores,
         {
@@ -131,42 +175,18 @@ export default function FruitRipenScene({ onNext }: SceneProps) {
             </p>
             
             <div className="grid grid-cols-1 gap-3 w-full max-w-xs">
-              <button 
-                onClick={() => handleComplete('N', '今味わいたいから')}
-                disabled={submitted}
-                className="p-4 border border-slate-300 rounded-xl hover:bg-slate-100 transition-colors text-sm text-left disabled:opacity-50"
-              >
-                今味わいたいから
-              </button>
-              <button 
-                onClick={() => handleComplete('V', '完成形だと思うから')}
-                disabled={submitted}
-                className="p-4 border border-slate-300 rounded-xl hover:bg-slate-100 transition-colors text-sm text-left disabled:opacity-50"
-              >
-                完成形だと思うから
-              </button>
-              <button 
-                onClick={() => handleComplete('B', '種を残したいから')}
-                disabled={submitted}
-                className="p-4 border border-slate-300 rounded-xl hover:bg-slate-100 transition-colors text-sm text-left disabled:opacity-50"
-              >
-                種を残したいから
-              </button>
-              <button 
-                onClick={() => handleComplete('P', 'ここまで育った過程が好きだから')}
-                disabled={submitted}
-                className="p-4 border border-slate-300 rounded-xl hover:bg-slate-100 transition-colors text-sm text-left disabled:opacity-50"
-              >
-                ここまで育った過程が好きだから
-              </button>
-              <button 
-                onClick={() => handleComplete(null, '美味しそうだから')}
-                disabled={submitted}
-                className="p-4 border border-slate-300 rounded-xl hover:bg-slate-100 transition-colors text-sm text-left disabled:opacity-50"
-              >
-                美味しそうだから
-              </button>
+              {currentStage.reasons.map((reason, idx) => (
+                <button 
+                  key={idx}
+                  onClick={() => handleComplete(reason.type as 'P' | 'N' | 'B' | 'V' | null, reason.text)}
+                  disabled={submitted}
+                  className="p-4 border border-slate-300 rounded-xl hover:bg-slate-100 transition-colors text-sm text-left disabled:opacity-50"
+                >
+                  {reason.text}
+                </button>
+              ))}
             </div>
+            {/* 砂時計アニメーションを復旧！ */}
             {submitted && <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1 }} className="mt-8 text-2xl">⏳</motion.div>}
           </motion.div>
         )}

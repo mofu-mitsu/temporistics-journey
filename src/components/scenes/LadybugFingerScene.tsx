@@ -2,6 +2,39 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { SceneProps } from '../../types';
 
+// 各アクション（離す、そのままにする、吹く）ごとに理由をマッピング！
+const ACTION_DATA: Record<string, {
+  reasons: { type: 'P' | 'N' | 'B' | 'V' | ''; text: string }[]
+}> = {
+  '離す': {
+    reasons: [
+      { type: 'V', text: '本来あるべき自然へ返してあげるべきだと思うから' },
+      { type: 'P', text: '元いた草むらなどの場所へ戻してあげたいから' },
+      { type: 'B', text: 'これ以上邪魔せず、次の目的地へ向かわせてあげたいから' },
+      { type: 'N', text: 'ちょうど今、別の場所に移動させたくなったから' },
+      { type: '', text: '虫が苦手だから' }
+    ]
+  },
+  'そのままにする': {
+    reasons: [
+      { type: 'B', text: 'このあとどこへ向かって歩き出すのか見届けたいから' },
+      { type: 'N', text: '今この瞬間、指にとまっている感覚を楽しみたいから' },
+      { type: 'V', text: '自然の流れに身を任せて、止まりたいだけ止めさせるのが本質だと思うから' },
+      { type: 'P', text: 'さっき止まったばかりだから、しばらくこのままにしておこうと思ったから' },
+      { type: '', text: '可愛いから' }
+    ]
+  },
+  '吹く': {
+    reasons: [
+      { type: 'N', text: '今すぐここから飛び立ちたいだろうと思ったから' },
+      { type: 'B', text: '風に乗って遠くへ飛んでいく未来の姿を見たいから' },
+      { type: 'V', text: '刺激を与えて飛ばせるのが、生き物との正しい距離感だと思うから' },
+      { type: 'P', text: '指に登ってくる前の状態（自由な飛行状態）に戻してあげたかったから' },
+      { type: '', text: 'なんとなく驚かせてみたかったから' }
+    ]
+  }
+};
+
 export default function LadybugFingerScene({ onNext, isActive }: SceneProps) {
   const [phase, setPhase] = useState(0);
   const [action, setAction] = useState('');
@@ -21,6 +54,9 @@ export default function LadybugFingerScene({ onNext, isActive }: SceneProps) {
       setPhase(1);
     }
   };
+
+  // 現在選択されているアクションの理由データを取得（安全のためのフォールバック付き）
+  const currentActionData = ACTION_DATA[action] || { reasons: [] };
 
   return (
     <motion.div
@@ -69,7 +105,7 @@ export default function LadybugFingerScene({ onNext, isActive }: SceneProps) {
               </motion.div>
             </div>
             <p className="text-lg font-light tracking-widest mb-12 text-center">
-              あなたの指に、テントウ虫が止まりました。<br />
+              あなたの指に、テントウムシが止まりました。<br />
               どうしますか？
             </p>
             <div className="grid grid-cols-1 gap-4 w-full max-w-xs relative z-10 px-4">
@@ -97,43 +133,19 @@ export default function LadybugFingerScene({ onNext, isActive }: SceneProps) {
               なぜ、そうしましたか？
             </p>
 
+            {/* アクションに応じた理由をループで動的レンダリング！ */}
             <div className="grid grid-cols-1 gap-3 w-full max-w-sm relative z-10 px-4">
-              <button
-                onClick={() => handleReason('V', '自然へ返してあげるべきだと思うから')}
-                className="p-4 border border-current rounded-xl hover:bg-black/5 transition-colors text-sm text-left shadow-sm"
-              >
-                自然へ返してあげるべきだと思うから
-              </button>
-              <button
-                onClick={() => handleReason('N', '今、飛び立ちたいだろうから')}
-                className="p-4 border border-current rounded-xl hover:bg-black/5 transition-colors text-sm text-left shadow-sm"
-              >
-                今、飛び立ちたいだろうから
-              </button>
-              <button
-                onClick={() => handleReason('P', '元いた場所へ戻してあげたいから')}
-                className="p-4 border border-current rounded-xl hover:bg-black/5 transition-colors text-sm text-left shadow-sm"
-              >
-                元いた場所へ戻してあげたいから
-              </button>
-              <button
-                onClick={() => handleReason('B', 'このあとどこへ向かうのか見届けたいから')}
-                className="p-4 border border-current rounded-xl hover:bg-black/5 transition-colors text-sm text-left shadow-sm"
-              >
-                このあとどこへ向かうのか見届けたいから
-              </button>
-              <button
-                onClick={() => handleReason('', '虫が苦手だから')}
-                className="p-4 border border-current rounded-xl hover:bg-black/5 transition-colors text-sm text-left shadow-sm opacity-80"
-              >
-                虫が苦手だから
-              </button>
-              <button
-                onClick={() => handleReason('', '可愛いから')}
-                className="p-4 border border-current rounded-xl hover:bg-black/5 transition-colors text-sm text-left shadow-sm opacity-80"
-              >
-                可愛いから
-              </button>
+              {currentActionData.reasons.map((reason, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => handleReason(reason.type, reason.text)}
+                  className={`p-4 border border-current rounded-xl hover:bg-black/5 transition-colors text-sm text-left shadow-sm ${
+                    reason.type === '' ? 'opacity-80' : ''
+                  }`}
+                >
+                  {reason.text}
+                </button>
+              ))}
             </div>
           </motion.div>
         )}

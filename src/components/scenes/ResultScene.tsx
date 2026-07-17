@@ -35,7 +35,7 @@ export default function ResultScene({ data, onNext, final, onReset, logs = [] }:
   useEffect(() => {
     if (final && !hasSentGas.current) {
       hasSentGas.current = true;
-      const GAS_URL = 'YOUR_GAS_WEB_APP_URL_HERE'; // TODO: Replace with actual URL
+      const GAS_URL = 'https://script.google.com/macros/s/AKfycbwmaS7R0JwHBqVEXd8kCsi0lA6j2wkSH5lpmuIhAbOR5bMxNVj25U5DMb-30MQ5MA7WFw/exec'; // TODO: Replace with actual URL
       
       if (GAS_URL !== 'YOUR_GAS_WEB_APP_URL_HERE') {
         const payload = {
