@@ -62,55 +62,24 @@ export default function ResultScene({ data, onNext, final, onReset, logs = [] }:
     }
   }, [final, data, logs, typeString]);
 
-const handleSaveImage = async () => {
-  if (!resultRef.current) return;
-
-  try {
-    const dataUrl = await htmlToImage.toPng(resultRef.current, {
-      backgroundColor: "#111111",
-      pixelRatio: 2,
-      cacheBust: true,
-    });
-
-    // DataURL → Blob
-    const blob = await (await fetch(dataUrl)).blob();
-
-    // iPhone・Androidなら共有シートを優先
-    const file = new File(
-      [blob],
-      "temporistics-result.png",
-      { type: "image/png" }
-    );
-
-    if (
-      navigator.canShare &&
-      navigator.canShare({ files: [file] })
-    ) {
-      await navigator.share({
-        files: [file],
-        title: "Temporistics",
+  const handleSaveImage = async () => {
+    if (!resultRef.current) return;
+    try {
+      const dataUrl = await htmlToImage.toPng(resultRef.current, {
+        backgroundColor: '#111111',
+        height: resultRef.current.offsetHeight,
+        width: resultRef.current.offsetWidth,
+        style: { transform: 'scale(1)', transformOrigin: 'top left' }
       });
-      return;
+      const link = document.createElement('a');
+      link.download = 'temporistics-result.png';
+      link.href = dataUrl;
+      link.click();
+    } catch (err) {
+      console.error('Failed to save image', err);
+      toast.error("画像の保存に失敗しました。");
     }
-
-    // PCなど通常ブラウザ
-    const url = URL.createObjectURL(blob);
-
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "temporistics-result.png";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    URL.revokeObjectURL(url);
-
-  } catch (err) {
-    console.error("Failed to save image", err);
-    toast.error("画像の保存に失敗しました。");
-  }
-};
-  
+  };
 
   const handleShare = async () => {
     const text = `私の時間旅行の記憶\n${results.map(r => `${r.position}${r.type}: ${r.role}`).join('\n')}\n#Temporistics`;
