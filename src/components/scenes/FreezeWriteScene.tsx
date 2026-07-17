@@ -20,7 +20,7 @@ export default function FreezeWriteScene({ onNext, isActive }: SceneProps) {
     
     if (finalText) {
       const cost = 20 - timeLeft;
-      scores.P = Math.max(0, 100 - cost * 5);
+      scores.P = Math.max(0, 30 - cost * 1.5);
       
       finalReply = "ふふ、面白い言葉を書くのね。それは『演出』？ それとも、ただの『防衛』かしら。消去（デリート）はさせないから、そのまま過去のアーカイブに飾っておくね♡";
 

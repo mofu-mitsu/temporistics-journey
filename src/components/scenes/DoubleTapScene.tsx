@@ -21,7 +21,7 @@ export default function DoubleTapScene({ onNext, isActive }: SceneProps) {
       const delay = now - lastTapTimeRef.current;
       
       // delayが短いほど過去(P)への執着がない(4P)、長いほどためらった(3P)等
-      const score = Math.max(0, 100 - (delay / 50));
+      const score = Math.max(0, 30 - (delay / 150));
       
       setTimeout(() => {
         onNext({ P: score });

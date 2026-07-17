@@ -31,7 +31,7 @@ export default function SandglassScene({ onNext, isActive }: SceneProps) {
     setIsStopped(true);
     // 早く止めたらBが高い(未来を自分で決める)
     // 遅く止めたらBが低い(運命を待つ)
-    const score = isTimeout === true ? 0 : 100 - progress;
+    const score = isTimeout === true ? 0 : (100 - progress) * 0.3;
     
     // 少し余韻を残して次へ
     setTimeout(() => {

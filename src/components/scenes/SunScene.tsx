@@ -7,7 +7,7 @@ export default function SunScene({ onNext, isActive }: SceneProps) {
 
   const handleComplete = () => {
     // 50 (真昼) に近いほど「現在」に焦点が当たっているとし、Nを高くする。
-    const score = 100 - Math.abs(val - 50) * 2;
+    const score = (100 - Math.abs(val - 50) * 2) * 0.3;
     onNext({ N: score });
   };
 

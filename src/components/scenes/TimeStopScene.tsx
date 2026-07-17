@@ -22,7 +22,7 @@ export default function TimeStopScene({ onNext, isActive }: SceneProps) {
     setIsStopped(true);
 
     // 最大約15秒としてスコア化
-    const score = Math.min((time / 15000) * 100, 100);
+    const score = Math.min((time / 15000) * 30, 30);
 
     setTimeout(() => {
       onNext({ V: score });

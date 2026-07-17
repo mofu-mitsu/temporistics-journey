@@ -16,7 +16,7 @@ export default function TrumpCardScene({ onNext, isActive }: SceneProps) {
   const handleDrawEnd = () => setIsDrawing(false);
 
   const handleNext = () => {
-    onNext({ P: hasDrawn ? 80 : 20 }, { actionDesc: hasDrawn ? 'キャンバスに文字を書いた' : 'キャンバスに何も書かなかった', scores: { P: hasDrawn ? 80 : 20 } });
+    onNext({ P: hasDrawn ? 30 : 10 }, { actionDesc: hasDrawn ? 'キャンバスに文字を書いた' : 'キャンバスに何も書かなかった', scores: { P: hasDrawn ? 30 : 10 } });
   };
 
   return (

@@ -34,7 +34,7 @@ export default function BugMashScene({ onNext, isActive }: SceneProps) {
     if (newClicks >= targetClicks) {
       setFinished(true);
       setTimeout(() => {
-        onNext({ N: 100 }); // 完遂
+        onNext({ N: 30 }); // 完遂
       }, 2000);
     }
   };

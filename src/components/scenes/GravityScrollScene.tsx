@@ -39,7 +39,7 @@ export default function GravityScrollScene({ onNext, isActive }: SceneProps) {
     
     const reactionTime = stopTime ? Date.now() - stopTime : 0;
     // 反応が早いほど N(現在) が高い、遅いほど B(未来) または P(過去) に引っ張られている
-    onNext({ N: Math.max(0, 100 - reactionTime / 20) });
+    onNext({ N: Math.max(0, 30 - reactionTime / 60) });
   };
 
   return (

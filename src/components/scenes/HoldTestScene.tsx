@@ -26,7 +26,7 @@ export default function HoldTestScene({ onNext, isActive }: SceneProps) {
       if (elapsed < duration) {
         setHasFinished(true);
         // 驚いて離したならNが高い
-        onNext({ N: 100 - (elapsed / duration) * 100 }); 
+        onNext({ N: (100 - (elapsed / duration) * 100) * 0.3 }); 
       }
     }
   };
@@ -50,7 +50,7 @@ export default function HoldTestScene({ onNext, isActive }: SceneProps) {
     if (currentProgress >= 100) {
       setHasFinished(true);
       setShowDarling(false);
-      onNext({ V: 100 });
+      onNext({ V: 30 });
       return;
     }
 

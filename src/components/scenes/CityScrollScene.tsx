@@ -9,7 +9,7 @@ export default function CityScrollScene({ onNext, isActive }: SceneProps) {
   
   const handleComplete = () => {
     // 値が小さいほど過去(0=過去, 100=未来)なので、Pのスコアは 100 - val にする
-    const score = 100 - val;
+    const score = (100 - val) * 0.3;
     onNext({ P: score });
   };
 
