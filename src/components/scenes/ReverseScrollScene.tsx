@@ -67,7 +67,7 @@ export default function ReverseScrollScene({ onNext, isActive }: SceneProps) {
       </div>
       
       <p className="text-xs opacity-50 font-mono text-center z-10 text-slate-600 mb-8">
-        Swipe ← (前へ) / Swipe → (過去へ)
+        Swipe ← (過去へ) / Swipe → (前へ)
       </p>
 
       <DarlingOverlay 
