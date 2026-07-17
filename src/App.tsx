@@ -238,7 +238,11 @@ export default function App() {
       const updated = { ...prev };
       (Object.keys(newScores) as (keyof ResultData)[]).forEach((key) => {
         if (newScores[key] !== undefined) {
-          updated[key] += newScores[key]!;
+          if (typeof newScores[key] === 'number') {
+            (updated as any)[key] = ((updated as any)[key] || 0) + newScores[key]!;
+          } else {
+            (updated as any)[key] = newScores[key];
+          }
         }
       });
       return updated;
@@ -248,15 +252,19 @@ export default function App() {
 
   const handleStart = (initialScores?: Partial<ResultData>, log?: Omit<ActionLog, 'sceneId'> | Omit<ActionLog, 'sceneId'>[]) => {
     setStep(1);
-    const s = { P: 0, N: 0, B: 0, V: 0 };
+    const s: any = { P: 0, N: 0, B: 0, V: 0 };
     if (initialScores && !('type' in initialScores)) {
       (Object.keys(initialScores) as (keyof ResultData)[]).forEach((key) => {
         if (initialScores[key] !== undefined) {
-          s[key] += initialScores[key]!;
+          if (typeof initialScores[key] === 'number') {
+            s[key] = (s[key] || 0) + (initialScores[key] as number);
+          } else {
+            s[key] = initialScores[key];
+          }
         }
       });
     }
-    setScores(s);
+    setScores(s as ResultData);
     setActionLogs([]);
     setSelectedScenes(getRandomScenes(15));
   };

@@ -17,6 +17,7 @@ export interface ResultData {
   N: number;
   B: number;
   V: number;
+  selfIdentifiedType?: string;
   hasSeTalent?: boolean;
   hasFeVulnerable?: boolean;
 }

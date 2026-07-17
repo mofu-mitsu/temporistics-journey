@@ -17,6 +17,7 @@ export default function ResultScene({ data, onNext, final, onReset, logs = [] }:
   const [showResult, setShowResult] = useState(final || false);
   const [showLogModal, setShowLogModal] = useState(false);
   const resultRef = useRef<HTMLDivElement>(null);
+  const hasSentGas = useRef(false);
 
   useEffect(() => {
     if (!final && onNext) {
@@ -29,6 +30,37 @@ export default function ResultScene({ data, onNext, final, onReset, logs = [] }:
   }, [final, onNext]);
 
   const results = calculateResult(data);
+  const typeString = results.map(r => `${r.position}${r.type}`).join('');
+
+  useEffect(() => {
+    if (final && !hasSentGas.current) {
+      hasSentGas.current = true;
+      const GAS_URL = 'YOUR_GAS_WEB_APP_URL_HERE'; // TODO: Replace with actual URL
+      
+      if (GAS_URL !== 'YOUR_GAS_WEB_APP_URL_HERE') {
+        const payload = {
+          selfType: data.selfIdentifiedType || '',
+          resultType: typeString,
+          scores: {
+            P: data.P,
+            N: data.N,
+            B: data.B,
+            V: data.V
+          },
+          log: logs.map(l => `[${l.sceneId}] ${l.actionDesc}`).join('\n')
+        };
+
+        fetch(GAS_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload)
+        }).catch(err => console.error('GAS send error', err));
+      }
+    }
+  }, [final, data, logs, typeString]);
 
   const handleSaveImage = async () => {
     if (!resultRef.current) return;
@@ -89,7 +121,6 @@ export default function ResultScene({ data, onNext, final, onReset, logs = [] }:
   }
 
   // 結果のキー文字列 (例: "1P2N3B4V")
-  const typeString = results.map(r => `${r.position}${r.type}`).join('');
 
   const getLogText = () => {
     let text = `【Temporistics 診断結果】\n`;
@@ -148,6 +179,55 @@ export default function ResultScene({ data, onNext, final, onReset, logs = [] }:
         <div className="text-center mb-8">
           <p className="text-3xl font-sans tracking-[0.2em] font-medium mb-2">{typeString}</p>
           <p className="text-xs opacity-60 font-light mb-8">Temporistics Type</p>
+          
+          <div className="w-full max-w-xs mx-auto mb-8 space-y-3 text-left">
+            {[
+              { type: 'V', label: '永遠(V)', color: 'bg-purple-500', value: data.V },
+              { type: 'B', label: '未来(B)', color: 'bg-blue-500', value: data.B },
+              { type: 'P', label: '過去(P)', color: 'bg-amber-700', value: data.P },
+              { type: 'N', label: '現在(N)', color: 'bg-green-500', value: data.N },
+            ].map(item => {
+              const maxVal = Math.max(1, data.V, data.B, data.P, data.N);
+              const width = Math.max(0, Math.min(100, (item.value / maxVal) * 100));
+              return (
+                <div key={item.type} className="flex items-center text-xs">
+                  <span className="w-16 font-mono opacity-80">{item.label}</span>
+                  <div className="flex-1 h-3 bg-white/10 rounded-full overflow-hidden mx-2 relative">
+                    <div 
+                      className={`absolute top-0 left-0 h-full ${item.color} rounded-full`}
+                      style={{ width: `${width}%` }}
+                    />
+                  </div>
+                  <span className="w-8 text-right font-mono opacity-80">{Math.round(item.value)}</span>
+                </div>
+              );
+            })}
+          </div>
+
+          {(() => {
+            const sorted = [
+              { type: 'V', value: data.V },
+              { type: 'B', value: data.B },
+              { type: 'P', value: data.P },
+              { type: 'N', value: data.N * 0.9 },
+            ].sort((a, b) => b.value - a.value);
+            const topDiff = sorted[0].value - sorted[1].value;
+            const secondDiff = sorted[1].value - sorted[2].value;
+            const messages = [];
+            if (topDiff < 20) {
+              messages.push(`第1側面と第2側面（${sorted[0].type}と${sorted[1].type}）が非常に拮抗しています。どちらが本来の第1側面か、自己分析の参考にしてください。`);
+            }
+            if (secondDiff < 20) {
+              messages.push(`第2側面と第3側面（${sorted[1].type}と${sorted[2].type}）のスコアが近いです。`);
+            }
+            if (messages.length === 0) return null;
+            return (
+              <div className="w-full max-w-xs mx-auto mb-8 p-4 rounded-xl border border-blue-500/30 bg-blue-900/20 text-blue-200 text-xs leading-relaxed text-left">
+                <p className="font-bold mb-1"><i className="fa-solid fa-circle-info mr-1"></i> スコア分析</p>
+                {messages.map((m, i) => <p key={i} className="mb-1 opacity-90">・{m}</p>)}
+              </div>
+            );
+          })()}
 
           <div className="relative w-40 h-40 mx-auto mt-4 mb-6">
             <svg className="absolute inset-0 w-full h-full text-white/10 pointer-events-none" viewBox="0 0 100 100">

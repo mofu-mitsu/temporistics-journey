@@ -69,7 +69,7 @@ export default function LadybugFingerScene({ onNext, isActive }: SceneProps) {
               </motion.div>
             </div>
             <p className="text-lg font-light tracking-widest mb-12 text-center">
-              あなたの指に、キイロテントウが止まりました。<br />
+              あなたの指に、テントウ虫が止まりました。<br />
               どうしますか？
             </p>
             <div className="grid grid-cols-1 gap-4 w-full max-w-xs relative z-10 px-4">

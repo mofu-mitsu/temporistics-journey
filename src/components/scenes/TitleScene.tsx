@@ -12,6 +12,7 @@ export default function TitleScene({ onNext }: Props) {
   const hasFinished = useRef(false);
   const [isJuicing, setIsJuicing] = useState(false);
   const [showExplanation, setShowExplanation] = useState(false);
+  const [selfType, setSelfType] = useState('');
 
   const handleDrag = (event: any, info: any) => {
     if (hasFinished.current) return;
@@ -31,7 +32,7 @@ export default function TitleScene({ onNext }: Props) {
       const nScore = Math.max(0, 100 - duration / 50);
       
       setTimeout(() => {
-        onNext({ N: nScore });
+        onNext({ N: nScore, selfIdentifiedType: selfType });
       }, 1800);
     }
   };
@@ -92,13 +93,23 @@ export default function TitleScene({ onNext }: Props) {
         </button>
       </div>
 
-      <div className="text-left text-xs opacity-80 mb-10 tracking-wide font-light bg-white/40 p-4 rounded-xl border border-white/50 backdrop-blur-md relative z-10 text-slate-800 shadow-sm">
+      <div className="text-left text-xs opacity-80 mb-6 tracking-wide font-light bg-white/40 p-4 rounded-xl border border-white/50 backdrop-blur-md relative z-10 text-slate-800 shadow-sm">
         <p className="mb-2 font-medium flex items-center gap-1 text-red-600">
           <i className="fa-solid fa-triangle-exclamation"></i> ※ 警告
         </p>
         <p className="leading-relaxed">
           本診断には、一部癖の強いキャラクター（ダーリンちゃん、LSI芋虫）からの予測不能な干渉が含まれます。煽り耐性のない方や、心が繊細な方は、今すぐ引き返してください。
         </p>
+      </div>
+
+      <div className="relative z-10 w-full mb-8">
+        <input 
+          type="text" 
+          value={selfType}
+          onChange={(e) => setSelfType(e.target.value)}
+          placeholder="自認タイプ (任意) 例: 1B2V3P4N"
+          className="w-full max-w-xs px-4 py-3 rounded-xl border border-slate-300 bg-white/60 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent text-sm text-center shadow-sm placeholder-slate-400"
+        />
       </div>
 
       <div className="relative z-10 w-full h-32 flex flex-col items-center justify-center">

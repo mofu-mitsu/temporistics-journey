@@ -1,0 +1,33 @@
+function doPost(e) {
+  try {
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    const data = JSON.parse(e.postData.contents);
+    
+    // タイムスタンプ
+    const timestamp = new Date();
+    
+    // スプレッドシートに追記するデータ配列
+    sheet.appendRow([
+      timestamp,
+      data.selfType || '',
+      data.resultType || '',
+      data.scores ? data.scores.P || 0 : 0,
+      data.scores ? data.scores.N || 0 : 0,
+      data.scores ? data.scores.B || 0 : 0,
+      data.scores ? data.scores.V || 0 : 0,
+      data.log || ''
+    ]);
+    
+    return ContentService.createTextOutput(JSON.stringify({ status: 'success' }))
+      .setMimeType(ContentService.MimeType.JSON);
+      
+  } catch(error) {
+    return ContentService.createTextOutput(JSON.stringify({ status: 'error', message: error.message }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function doOptions(e) {
+  return ContentService.createTextOutput('')
+    .setMimeType(ContentService.MimeType.TEXT);
+}
