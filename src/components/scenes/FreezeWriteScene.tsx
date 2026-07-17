@@ -94,9 +94,9 @@ export default function FreezeWriteScene({ onNext, isActive }: SceneProps) {
           {!frozen && text.length > 0 && (
             <button 
               onClick={() => handleComplete(text)}
-              className="px-6 bg-blue-600 hover:bg-blue-500 text-white font-medium transition-colors"
+              className="px-6 bg-blue-600 hover:bg-blue-500 text-white font-medium transition-colors flex items-center justify-center gap-2"
             >
-              送信
+              <i className="fa-solid fa-paper-plane"></i>送信
             </button>
           )}
         </div>

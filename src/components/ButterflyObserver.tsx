@@ -86,9 +86,9 @@ export default function ButterflyObserver({ step }: Props) {
     return () => clearInterval(idleCheck);
   }, [message, step, isHidden]);
 
-  if (step === 0 || step >= 16 || isHidden) return null;
+  if (step === 0 || step >= 16) return null;
 
-  const handleDismiss = (e: React.MouseEvent) => {
+  const handleDismiss = (e: any) => {
     e.stopPropagation();
     setIsHidden(true);
     setTimeout(() => {
@@ -103,15 +103,19 @@ export default function ButterflyObserver({ step }: Props) {
         left: position.x, 
         top: position.y,
         y: [0, -10, 0, 10, 0],
-        x: [0, 5, 0, -5, 0]
+        x: [0, 5, 0, -5, 0],
+        opacity: isHidden ? 0 : 1,
+        scale: isHidden ? 0 : 1
       }}
       transition={{ 
         left: { type: "spring", stiffness: 50, damping: 20 },
         top: { type: "spring", stiffness: 50, damping: 20 },
+        opacity: { duration: 1, ease: "easeInOut" },
+        scale: { duration: 1, ease: "easeInOut" },
         y: { repeat: Infinity, duration: 4, ease: "easeInOut" },
         x: { repeat: Infinity, duration: 3, ease: "easeInOut" }
       }}
-      className="fixed z-50"
+      className={`fixed z-50 ${isHidden ? 'pointer-events-none' : ''}`}
     >
       <div className="relative">
         <motion.div 

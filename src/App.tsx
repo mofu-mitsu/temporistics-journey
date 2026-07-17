@@ -54,6 +54,22 @@ import FruitRipenScene from './components/scenes/FruitRipenScene';
 
 // 出題可能な全シーン
 const SCENES = [
+  {
+    id: 'q_reason',
+    component: (props: any) => (
+      <TextQuestionScene
+        {...props}
+        question="目の前で起きたトラブルの「原因」が分かりました。"
+        description="さて、次にあなたが取る行動は？"
+        choices={[
+          { text: "詳細な記録を残す", scores: { P: 30 } },
+          { text: "二度と起きないよう再発防止策を練る", scores: { B: 30 } },
+          { text: "この出来事の意味を考える", scores: { V: 30 } },
+          { text: "とりあえず今を立て直す", scores: { N: 30 } },
+        ]}
+      />
+    )
+  },
   { id: 'fruit', component: FruitRipenScene },
   { id: 'sun', component: SunScene },
   { id: 'city', component: CityScrollScene },
@@ -79,12 +95,12 @@ const SCENES = [
     component: (props: any) => (
       <DarlingQuestionScene
         {...props}
-        question="私があなたの手帳から、「未来の予定」が書かれたページを全部破り捨てて燃やしちゃった♡……ねぇ、どうする？"
+        question="目の前で、あなたが何年もかけて書き上げた『完璧な論理の設計図』を、私が笑いながら破り捨てているわ。……ねぇ、どうする？"
         choices={[
-          { text: "激怒し、即座に新しい未来の計画を引き直す", scores: { B: 30 } },
-          { text: "「まあいいか」と、今ここにある時間を楽しむ", scores: { N: 30 } },
-          { text: "過去の記録ページが無事かどうかに最も執着する", scores: { P: 30 } },
-          { text: "計画の無意味さを悟り、ただ燃える炎を哲学的に見つめる", scores: { V: 30 } },
+          { text: "冷めた目で私を見つめ、またゼロから全く同じものを書き直す。", scores: { V: 10 } },
+          { text: "『どうせいつかは壊れるものだった』と、破片のシトラスの香りを嗅いで楽しむ。", scores: { V: 20 } },
+          { text: "私の手を掴んで、破るのを物理的に止め、激しく非難する。", scores: { V: 30 } },
+          { text: "『やっぱりね』と、破られる瞬間を静かに鑑賞する。", scores: { V: 5 } },
           { text: "私への逆襲を書く", scores: { V: 40 }, isTextInput: true },
         ]}
       />
@@ -95,7 +111,7 @@ const SCENES = [
     component: (props: any) => (
       <DarlingQuestionScene
         {...props}
-        question="時計の針が逆回転を始めた。あなたは過去へ引き戻されようとしている。その時、あなたの頭の中を占めるのは？"
+        question="ねぇ、時計の針が逆回転を始めたわ……。あなたは過去へ引き戻されようとしている。その時、あなたの頭の中を占めるのは何かしら？"
         choices={[
           { text: "「未来に帰る方法」を考え始める", scores: { B: 30 } },
           { text: "「今この瞬間の感覚」を失わないよう自分を保つ", scores: { N: 30 } },
@@ -110,7 +126,7 @@ const SCENES = [
     component: (props: any) => (
       <DarlingQuestionScene
         {...props}
-        question="終わりの見えない嵐。船は完全にコントロールを失っている。マストが折れる音が響く中で、あなたが一番気になるのは？"
+        question="ふふ、終わりの見えない嵐ね……。船は完全にコントロールを失っているわ。マストが折れる音が響く中で、あなたが一番気になっちゃうのはどれ？"
         choices={[
           { text: "嵐が過ぎ去った後の航路", scores: { B: 30 } },
           { text: "今、体が感じている波の揺れと恐怖", scores: { N: 30 } },
@@ -125,7 +141,7 @@ const SCENES = [
     component: (props: any) => (
       <DarlingQuestionScene
         {...props}
-        question="「ここにいていいよ」と、誰かがあなたを温かく抱きしめてくれた。けれどその腕からは、うっすらと腐敗したレモンの匂いがしている。その匂いを嗅いだ時、あなたはどこへ意識が向かう？"
+        question="『ここにいていいよ』と、誰かがあなたを温かく抱きしめてくれたわ。けれどその腕からは、うっすらと腐敗したレモンの匂いがしているの……。その匂いを嗅いだ時、あなたの意識はどこへ向かうかしら？"
         choices={[
           { text: "いつか完全に腐り落ちる未来", scores: { B: 30 } },
           { text: "今、肌に伝わってくる生暖かい体温", scores: { N: 30 } },
@@ -143,10 +159,10 @@ const SCENES = [
         question="古い図書館の奥深く。誰も知らない本棚の前に立ちました。"
         description="あなたが最初に手に取るのはどんな本ですか？"
         choices={[
-          { text: "歴史の真実が記された古文書", scores: { P: 100 } },
-          { text: "この図書館の現在の見取り図", scores: { N: 100 } },
-          { text: "未来の予言書", scores: { B: 100 } },
-          { text: "世界の真理を説いた哲学書", scores: { V: 100 } },
+          { text: "歴史の真実が記された古文書", scores: { P: 30 } },
+          { text: "この図書館の現在の見取り図", scores: { N: 30 } },
+          { text: "未来の予言書", scores: { B: 30 } },
+          { text: "世界の真理を説いた哲学書", scores: { V: 30 } },
         ]}
       />
     )
@@ -159,10 +175,10 @@ const SCENES = [
         question="10年後のあなたから手紙が届きました。"
         description="受け取ったあなたが、最初に一番気になるのは？"
         choices={[
-          { text: "そこに書かれている「未来の内容」", scores: { B: 100 } },
-          { text: "「今の状況」でこれを読むべきかどうか", scores: { N: 100 } },
-          { text: "なぜ「過去の自分」に宛てて書いたのか", scores: { P: 100 } },
-          { text: "この手紙が届いた「運命的な意味」", scores: { V: 100 } },
+          { text: "そこに書かれている「未来の内容」", scores: { B: 30 } },
+          { text: "「今の状況」でこれを読むべきかどうか", scores: { N: 30 } },
+          { text: "なぜ「過去の自分」に宛てて書いたのか", scores: { P: 30 } },
+          { text: "この手紙が届いた「運命的な意味」", scores: { V: 30 } },
         ]}
       />
     )
@@ -175,10 +191,10 @@ const SCENES = [
         question="霧に包まれた港。一隻の船が出航しようとしています。"
         description="あなたはこの船を見て、どう感じますか？"
         choices={[
-          { text: "この船はどこへ向かうのだろう", scores: { B: 100 } },
-          { text: "今、波に揺れる船の音が心地よい", scores: { N: 100 } },
-          { text: "なぜこの船はここに存在するのだろう", scores: { V: 100 } },
-          { text: "この船はどこから来たのだろう", scores: { P: 100 } },
+          { text: "この船はどこへ向かうのだろう", scores: { B: 30 } },
+          { text: "今、波に揺れる船の音が心地よい", scores: { N: 30 } },
+          { text: "なぜこの船はここに存在するのだろう", scores: { V: 30 } },
+          { text: "この船はどこから来たのだろう", scores: { P: 30 } },
         ]}
       />
     )

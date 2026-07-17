@@ -35,7 +35,7 @@ export default function ReverseScrollScene({ onNext, isActive }: SceneProps) {
     if (scrollCount >= 1 && offset < -10) {
       setHasYielded(true);
       setTimeout(() => {
-        onNext({ B: 100 }); // 抵抗し続けたのでB(未来)は100
+        onNext({ B: 20 }); // 抵抗し続けたのでB(未来)は20
       }, 1500);
     }
   };
@@ -48,7 +48,7 @@ export default function ReverseScrollScene({ onNext, isActive }: SceneProps) {
       className="flex flex-col items-center justify-center min-h-[400px] w-full overflow-hidden relative"
     >
       <p className="text-lg font-light tracking-widest mb-16 text-center z-10 text-current">
-        右にスワイプして、前に進んでください。
+        あなたはスワイプして時間の流れを自由に動かせます。
       </p>
 
       <div className="w-full max-w-sm relative h-32 flex items-center justify-center overflow-hidden mb-12 mask-image-linear z-10">
@@ -72,7 +72,7 @@ export default function ReverseScrollScene({ onNext, isActive }: SceneProps) {
 
       <DarlingOverlay 
         show={scrollCount > 0 && !hasYielded}
-        text="ねぇ、ダーリン♡ あなたは前に進んでいるつもり？……でもね、私にはあなたが“過去（思い出）”に引きずり戻されているようにしか見えないの。……本当は、あの頃に帰りたいんでしょ？『嫌だ』って謂ったってホントはお好きなんでしょ？"
+        text="ねぇ、ダーリン♡ あなたは前に進んでいるつもり？……でもね、私にはあなたが“過去（思い出）”に引きずり戻されているようにしか見えないの。……本当は、あの頃に帰りたいんでしょ？"
         position="top"
       />
     </motion.div>

@@ -76,7 +76,7 @@ export default function ElevatorScene({ onNext, isActive }: SceneProps) {
 
               <div className="grid grid-cols-2 gap-4 relative z-10">
                 <button
-                  onClick={() => handleSelect({ P: 30 })} // 過去・原因・分析
+                  onClick={() => handleSelect({ P: 10 })} // 過去・原因・分析
                   className="bg-red-900/40 hover:bg-red-800/60 border border-red-500/50 text-red-100 p-4 rounded-lg flex flex-col items-center transition-colors"
                 >
                   <div className="w-4 h-4 rounded-full bg-red-500 mb-2 shadow-[0_0_10px_rgba(239,68,68,0.8)]" />
@@ -84,7 +84,7 @@ export default function ElevatorScene({ onNext, isActive }: SceneProps) {
                 </button>
 
                 <button
-                  onClick={() => handleSelect({ N: 30 })} // 現在・行動・現実
+                  onClick={() => handleSelect({ N: 10 })} // 現在・行動・現実
                   className="bg-yellow-900/40 hover:bg-yellow-800/60 border border-yellow-500/50 text-yellow-100 p-4 rounded-lg flex flex-col items-center transition-colors"
                 >
                   <div className="w-4 h-4 rounded-full bg-yellow-500 mb-2 shadow-[0_0_10px_rgba(234,179,8,0.8)]" />
@@ -92,7 +92,7 @@ export default function ElevatorScene({ onNext, isActive }: SceneProps) {
                 </button>
 
                 <button
-                  onClick={() => handleSelect({ B: 30 })} // 未来・待機・予測
+                  onClick={() => handleSelect({ B: 10 })} // 未来・待機・予測
                   className="bg-green-900/40 hover:bg-green-800/60 border border-green-500/50 text-green-100 p-4 rounded-lg flex flex-col items-center transition-colors"
                 >
                   <div className="w-4 h-4 rounded-full bg-green-500 mb-2 shadow-[0_0_10px_rgba(34,197,94,0.8)]" />
@@ -100,7 +100,7 @@ export default function ElevatorScene({ onNext, isActive }: SceneProps) {
                 </button>
 
                 <button
-                  onClick={() => handleSelect({ V: 30 })} // 永遠・傍観・哲学
+                  onClick={() => handleSelect({ V: 10 })} // 永遠・傍観・哲学
                   className="bg-slate-800 hover:bg-slate-700 border border-slate-500/50 text-slate-200 p-4 rounded-lg flex flex-col items-center transition-colors"
                 >
                   <div className="w-4 h-4 rounded-full bg-white mb-2 shadow-[0_0_10px_rgba(255,255,255,0.8)]" />

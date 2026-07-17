@@ -4,10 +4,10 @@ import { SceneProps } from '../../types';
 
 const QUESTIONS = [
   { text: '過去の出来事は、今の自分を形作る大切な要素だと思う。', type: 'P' },
-  { text: '「なぜこうなったのか」を考えることが多い。', type: 'P' },
+  { text: '新しい出来事に触れた時、まず『過去に似た例』を思い出すことが多い。', type: 'P' },
   { text: '昔の出来事を振り返ることで、自分を理解できると感じる。', type: 'P' },
-  { text: '初対面の人でも、その人の過去に興味が湧く。', type: 'P' },
-  { text: '失敗の原因を分析するのは好きな方だ。', type: 'P' },
+  { text: '初対面の人でも、その人がどんな経験をしてきたか過去に興味が湧く。', type: 'P' },
+  { text: '自分を他人に説明するとき、経験や歩んできた道のりを重視する。', type: 'P' },
   { text: '昔から変わらない価値観を大切にしたい。', type: 'P' },
   { text: '思い出の品を捨てるのは少し苦手だ。', type: 'P' },
   { text: '「これまで何を積み重ねてきたか」を重視する。', type: 'P' },
@@ -21,23 +21,23 @@ const QUESTIONS = [
   { text: '自分の居場所がなくなることに不安を感じる。', type: 'N' },
   { text: 'その場の状況に合わせるのは比較的得意だ。', type: 'N' },
   
-  { text: '将来のことを考えるのは好きだ。', type: 'B' },
-  { text: 'ゴールを決めてから行動したい。', type: 'B' },
-  { text: '何年後かの自分を想像することが多い。', type: 'B' },
+  { text: '「5年後の自分」がどうなっているか具体的に考える。', type: 'B' },
+  { text: '「30年後の自分や社会」がどうなっているか想像する。', type: 'B' },
+  { text: '「100年後の人類」の未来について思いを馳せることがある。', type: 'B' },
+  { text: '将来のために、今の行動を逆算して決める。', type: 'B' },
   { text: '目標がない状態は少し落ち着かない。', type: 'B' },
-  { text: '「もっと成長したい」という気持ちが強い。', type: 'B' },
-  { text: '将来のためなら、今の努力は惜しまない。', type: 'B' },
+  { text: '未来の可能性を広げるために、今努力したい。', type: 'B' },
   { text: '選択するときは長期的な影響を考える。', type: 'B' },
   { text: '新しい可能性にはワクワクする。', type: 'B' },
   
   { text: '「人はなぜ生きるのか」を考えたことがある。', type: 'V' },
-  { text: '物事の本質を知りたいと思う。', type: 'V' },
+  { text: '愛や死といった、誰もが直面する『普遍的なテーマ』について考えるのが好きだ。', type: 'V' },
   { text: '社会や世界全体について考えるのが好きだ。', type: 'V' },
   { text: '人生には何らかの意味があると思う。', type: 'V' },
-  { text: '一つの出来事から普遍的な法則を考えることがある。', type: 'V' },
-  { text: '哲学的な話題は面白いと感じる。', type: 'V' },
+  { text: 'この世界には、目に見えない絶対的な真理や法則があると思う。', type: 'V' },
+  { text: '哲学的な話題や、目に見えないものについての議論は面白いと感じる。', type: 'V' },
   { text: '「正しさ」とは何かを考えることがある。', type: 'V' },
-  { text: '目先の利益よりも信念を優先したい。', type: 'V' }
+  { text: '時代を超えて残る「永遠のもの」に惹かれる。', type: 'V' }
 ];
 
 export default function CheckboxQuizScene({ onNext }: SceneProps) {
@@ -71,10 +71,10 @@ export default function CheckboxQuizScene({ onNext }: SceneProps) {
     selected.forEach(idx => {
       const type = shuffledQuestions[idx].type;
       actionDesc += `・${shuffledQuestions[idx].text} (${type})\n`;
-      if (type === 'P') p += 4;
-      if (type === 'N') n += 4;
-      if (type === 'B') b += 4;
-      if (type === 'V') v += 4;
+      if (type === 'P') p += 30;
+      if (type === 'N') n += 30;
+      if (type === 'B') b += 30;
+      if (type === 'V') v += 30;
     });
     
     if (selected.size === 0) {

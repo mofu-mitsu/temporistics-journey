@@ -59,7 +59,7 @@ export default function GravityScrollScene({ onNext, isActive }: SceneProps) {
       </div>
 
       <p className="text-lg font-light tracking-widest mb-16 text-center z-10">
-        画面を下へ...<br/>時間の重力に身を任せて。
+        画面を下へ...<br/>時間の重力に身を任せて（Tap）
       </p>
 
       <DarlingOverlay 
