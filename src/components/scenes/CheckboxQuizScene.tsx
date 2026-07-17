@@ -71,10 +71,10 @@ export default function CheckboxQuizScene({ onNext }: SceneProps) {
     selected.forEach(idx => {
       const type = shuffledQuestions[idx].type;
       actionDesc += `・${shuffledQuestions[idx].text} (${type})\n`;
-      if (type === 'P') p += 30;
-      if (type === 'N') n += 30;
-      if (type === 'B') b += 30;
-      if (type === 'V') v += 30;
+      if (type === 'P') p += 50;
+      if (type === 'N') n += 50;
+      if (type === 'B') b += 50;
+      if (type === 'V') v += 50;
     });
     
     if (selected.size === 0) {

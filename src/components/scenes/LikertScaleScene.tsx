@@ -15,11 +15,11 @@ const QUESTIONS: Question[] = [
 ];
 
 const CHOICES = [
-  { label: 'そう思う', score: 30 },
-  { label: 'ややそう思う', score: 15 },
+  { label: 'そう思う', score: 50 },
+  { label: 'ややそう思う', score: 30 },
   { label: 'どちらともいえない', score: 0 },
-  { label: 'あまりそう思わない', score: -15 },
-  { label: 'そう思わない', score: -30 }
+  { label: 'あまりそう思わない', score: -30 },
+  { label: 'そう思わない', score: -50 }
 ];
 
 export default function LikertScaleScene({ onNext }: SceneProps) {
