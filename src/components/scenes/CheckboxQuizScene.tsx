@@ -117,7 +117,7 @@ export default function CheckboxQuizScene({ onNext }: SceneProps) {
             }`}>
               {selected.has(idx) && <i className="fa-solid fa-check text-white text-xs"></i>}
             </div>
-            <span className="text-sm leading-relaxed text-slate-200">{q.text}</span>
+            <span className="text-sm leading-relaxed">{q.text}</span>
           </label>
         ))}
       </div>

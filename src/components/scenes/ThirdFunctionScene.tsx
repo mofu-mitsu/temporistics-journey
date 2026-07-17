@@ -43,9 +43,9 @@ export default function ThirdFunctionScene({ onNext }: SceneProps) {
     // いや、3番目は苦手意識が強いので、ネガティブな質問に「はい」と答えたら、それが3番目である可能性が高い。
 
     setTimeout(() => {
-      onNext({ [type]: -40 }, { 
+      onNext({ [type]: 15 }, { 
         actionDesc: `苦手意識（第3機能）の選択:\n${OPTIONS[index].text}`,
-        scores: { [type]: -40 }
+        scores: { [type]: 15 }
       });
     }, 1200);
   };
