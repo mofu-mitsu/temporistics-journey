@@ -1,0 +1,4 @@
+      const link = document.createElement('a');
+      link.download = 'temporistics-result.png';
+      link.href = dataUrl;
+      link.click();

@@ -1,0 +1,22 @@
+--- src/components/scenes/ResultScene.tsx
++++ src/components/scenes/ResultScene.tsx
+@@ -73,9 +73,16 @@
+         width: resultRef.current.offsetWidth,
+         style: { transform: 'scale(1)', transformOrigin: 'top left' }
+       });
+-      setImageDataUrl(dataUrl);
+-      setShowImageModal(true);
+-      toast.success("画像を生成しました。");
++      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
++      if (!isMobile) {
++        const link = document.createElement('a');
++        link.download = 'temporistics-result.png';
++        link.href = dataUrl;
++        link.click();
++      } else {
++        setImageDataUrl(dataUrl);
++        setShowImageModal(true);
++        toast.success("画像を生成しました。");
++      }
+     } catch (err) {
+       console.error('Failed to save image', err);

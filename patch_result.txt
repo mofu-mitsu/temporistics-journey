@@ -1,0 +1,23 @@
+--- src/components/scenes/ResultScene.tsx
++++ src/components/scenes/ResultScene.tsx
+@@ -16,6 +16,8 @@
+   const [showResult, setShowResult] = useState(final || false);
+   const [showLogModal, setShowLogModal] = useState(false);
++  const [showImageModal, setShowImageModal] = useState(false);
++  const [imageDataUrl, setImageDataUrl] = useState<string | null>(null);
+   const resultRef = useRef<HTMLDivElement>(null);
+   const hasSentGas = useRef(false);
+ 
+@@ -73,10 +75,8 @@
+         style: { transform: 'scale(1)', transformOrigin: 'top left' }
+       });
+-      const link = document.createElement('a');
+-      link.download = 'temporistics-result.png';
+-      link.href = dataUrl;
+-      link.click();
++      setImageDataUrl(dataUrl);
++      setShowImageModal(true);
++      toast.success("画像を生成しました。長押しまたは右クリックで保存してください。");
+     } catch (err) {
+       console.error('Failed to save image', err);
+       toast.error("画像の保存に失敗しました。");

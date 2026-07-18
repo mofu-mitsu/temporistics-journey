@@ -80,7 +80,7 @@ export default function TitleScene({ onNext }: Props) {
       
       <div className="text-left text-sm opacity-80 mb-6 tracking-wide font-light max-w-md bg-white/50 p-5 rounded-2xl border border-white/60 backdrop-blur-md relative z-10 text-slate-800 shadow-sm">
         <p className="mb-2">
-          テンポリスティックは、<strong>過去(P)・現在(N)・未来(B)・永遠(V)</strong>という4つの「時間」に対するあなたの態度を診断する類型論です。
+          テンポリスティックスは、<strong>過去(P)・現在(N)・未来(B)・永遠(V)</strong>という4つの「時間」に対するあなたの態度を診断する類型論です。
         </p>
         <p className="text-xs mb-3">
           どれを一番の目的にし、どれを手段として使い、どれに不安を覚え、どれを他者に委ねるか。様々な情景から紐解きます。
@@ -189,7 +189,7 @@ export default function TitleScene({ onNext }: Props) {
               
               <div className="space-y-6 text-sm leading-relaxed text-slate-700 font-medium">
                 <div>
-                  テンポリスティック（Temporistics）は、「人は時間をどのように捉えているのか」という視点から性格を分析する類型論です。
+                  テンポリスティックス（Temporistics）は、「人は時間をどのように捉えているのか」という視点から性格を分析する類型論です。
                 </div>
                 <div>
                   人によって、
@@ -202,7 +202,7 @@ export default function TitleScene({ onNext }: Props) {
                   など、時間への意識の向け方には違いがあります。
                 </div>
                 <div>
-                  テンポリスティックでは、その違いを
+                  テンポリスティックスでは、その違いを
                   <strong>過去（P）・現在（N）・未来（B）・永遠（V）</strong>
                   の4つの時間軸で表現します。<br/>
                   さらに、それぞれが
@@ -301,7 +301,7 @@ export default function TitleScene({ onNext }: Props) {
 
                 <h3 className="text-lg font-bold text-slate-900 mb-4">🌱 大切なのは「バランス」</h3>
                 <p>
-                  テンポリスティックでは、「どの時間が優れている」という考え方はありません。
+                  テンポリスティックスでは、「どの時間が優れている」という考え方はありません。
                   人が健全に成長するためには、過去・現在・未来・永遠、この4つすべてと関わることが大切だとされています。<br/>
                   特に、第3側面は苦手だからこそ避けがちですが、そこに向き合うことが成長につながると考えられています。
                 </p>
@@ -311,7 +311,7 @@ export default function TitleScene({ onNext }: Props) {
                 <div className="bg-slate-100 p-4 rounded-xl">
                   <h3 className="text-sm font-bold text-slate-900 mb-2">💡 豆知識</h3>
                   <p className="text-xs opacity-80">
-                    テンポリスティックは、サイコソフィアの考え方や、哲学者ニコライ・ベルジャーエフの思想を参考にして作られた類型論です。制作者はアレクサンドラ・ラティシェワで、全部で24タイプが存在します。
+                    テンポリスティックスは、サイコソフィアの考え方や、哲学者ニコライ・ベルジャーエフの思想を参考にして作られた類型論です。制作者はアレクサンドラ・ラティシェワで、全部で24タイプが存在します。
                   </p>
                 </div>
               </div>

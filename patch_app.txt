@@ -1,0 +1,19 @@
+--- src/App.tsx
++++ src/App.tsx
+@@ -148,6 +148,7 @@
+           { text: "今、肌に伝わってくる生暖かい体温", scores: { N: 30 } },
+           { text: "この人が抱えてきた過去の腐敗の歴史", scores: { P: 30 } },
+           { text: "愛と腐敗は表裏一体であるという普遍的真理", scores: { V: 30 } },
++          { text: "くっさ", scores: {} },
+         ]}
+       />
+     )
+@@ -226,7 +227,7 @@
+     setIsMuted(!isMuted);
+     if (audioRef.current) {
+       if (isMuted) {
+-        audioRef.current.volume = 0.3;
++        audioRef.current.volume = 0.8;
+         audioRef.current.play().catch(console.error);
+       }
+     }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Toaster } from 'sonner';
 import TitleScene from './components/scenes/TitleScene';
@@ -147,6 +147,7 @@ const SCENES = [
           { text: "今、肌に伝わってくる生暖かい体温", scores: { N: 30 } },
           { text: "この人が抱えてきた過去の腐敗の歴史", scores: { P: 30 } },
           { text: "愛と腐敗は表裏一体であるという普遍的真理", scores: { V: 30 } },
+          { text: "くっさ", scores: {} },
         ]}
       />
     )
@@ -218,6 +219,19 @@ export default function App() {
   const [scores, setScores] = useState<ResultData>({ P: 0, N: 0, B: 0, V: 0 });
   const [selectedScenes, setSelectedScenes] = useState<typeof SCENES>([]);
   const [actionLogs, setActionLogs] = useState<ActionLog[]>([]);
+  const [history, setHistory] = useState<{ scores: ResultData, actionLogs: ActionLog[] }[]>([]);
+  const [isMuted, setIsMuted] = useState(true);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  const toggleMute = () => {
+    setIsMuted(!isMuted);
+    if (audioRef.current) {
+      if (isMuted) {
+        audioRef.current.volume = 0.8;
+        audioRef.current.play().catch(console.error);
+      }
+    }
+  };
 
   useEffect(() => {
     // 初回起動時に10シーン選ぶ
@@ -225,6 +239,7 @@ export default function App() {
   }, []);
 
   const handleNext = (newScores: Partial<ResultData>, log?: Omit<ActionLog, 'sceneId'> | Omit<ActionLog, 'sceneId'>[]) => {
+    setHistory(prev => [...prev, { scores, actionLogs }]);
     if (log && step > 0 && step <= 15 && selectedScenes.length > 0) {
       const sceneId = selectedScenes[step - 1].id;
       const logsToAdd = Array.isArray(log) ? log : [log];
@@ -266,6 +281,7 @@ export default function App() {
     }
     setScores(s as ResultData);
     setActionLogs([]);
+    setHistory([]);
     setSelectedScenes(getRandomScenes(15));
   };
 
@@ -274,6 +290,19 @@ export default function App() {
     setScores({ P: 0, N: 0, B: 0, V: 0 });
     setSelectedScenes([]);
     setActionLogs([]);
+    setHistory([]);
+  };
+
+  const handleBack = () => {
+    if (step > 1 && history.length > 0) {
+      const lastState = history[history.length - 1];
+      setScores(lastState.scores);
+      setActionLogs(lastState.actionLogs);
+      setHistory(prev => prev.slice(0, -1));
+      setStep(prev => prev - 1);
+    } else if (step === 1) {
+      handleReset();
+    }
   };
 
   const isNight = step >= 8;
@@ -286,6 +315,15 @@ export default function App() {
     >
       <Toaster position="top-center" />
       <ButterflyObserver step={step} />
+
+      {/* BGM Audio */}
+      <audio 
+        ref={audioRef} 
+        src="https://upload.wikimedia.org/wikipedia/commons/2/21/Relaxing_Piano_Music_%28ISRC_USUAN1500075%29.mp3" 
+        loop 
+        muted={isMuted} 
+      />
+
       {step === 0 && (
         <a 
           href="https://mofu-mitsu.github.io/lab.html"
@@ -295,6 +333,21 @@ export default function App() {
         </a>
       )}
 
+      {step > 0 && step <= 15 && (
+        <button
+          onClick={handleBack}
+          className={`absolute top-6 left-6 opacity-60 hover:opacity-100 transition-opacity flex items-center text-sm z-50 ${isNight ? 'text-slate-100' : 'text-slate-800'}`}
+        >
+          <i className="fa-solid fa-arrow-left mr-2"></i> 戻る
+        </button>
+      )}
+
+      <button
+        onClick={toggleMute}
+        className={`absolute top-6 right-6 opacity-60 hover:opacity-100 transition-opacity flex items-center justify-center w-10 h-10 rounded-full z-50 ${isNight ? 'bg-white/10 text-slate-100' : 'bg-black/5 text-slate-800'}`}
+      >
+        <i className={`fa-solid ${isMuted ? 'fa-volume-xmark' : 'fa-volume-high'}`}></i>
+      </button>
       {/* 背景のエフェクト用レイヤー */}
       <div className="absolute inset-0 pointer-events-none opacity-30 mix-blend-overlay bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent" />
       

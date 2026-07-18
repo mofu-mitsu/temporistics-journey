@@ -1,0 +1,11 @@
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      if (!isMobile) {
+        const link = document.createElement('a');
+        link.download = 'temporistics-result.png';
+        link.href = dataUrl;
+        link.click();
+      } else {
+        setImageDataUrl(dataUrl);
+        setShowImageModal(true);
+        toast.success("画像を生成しました。");
+      }
