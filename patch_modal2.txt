@@ -1,0 +1,11 @@
+--- src/components/scenes/ResultScene.tsx
++++ src/components/scenes/ResultScene.tsx
+@@ -378,7 +378,7 @@
+               initial={{ y: 50, scale: 0.95 }}
+               animate={{ y: 0, scale: 1 }}
+               exit={{ y: 20, scale: 0.95 }}
+-              className="bg-[#111] border border-white/20 text-white p-6 rounded-2xl shadow-2xl max-w-sm w-full relative flex flex-col items-center"
++              className="bg-[#111] border border-white/20 text-white p-6 rounded-2xl shadow-2xl max-w-sm w-full max-h-[85vh] overflow-y-auto relative flex flex-col items-center"
+               onClick={(e) => e.stopPropagation()}
+             >
+               <button 

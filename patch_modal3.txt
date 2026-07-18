@@ -1,3 +1,4 @@
+              onClick={(e) => e.stopPropagation()}
             >
               <button 
                 onClick={() => setShowImageModal(false)}
@@ -8,12 +9,9 @@
               
               <h2 className="text-lg font-bold mb-2">画像の保存</h2>
               <p className="text-xs text-white/70 mb-6 text-center">
-                画像を長押しして<br/>保存してください。
+                画像を長押し（または右クリック）して<br/>「画像を保存」を選択してください。
               </p>
               
-              <div 
-                className="w-full rounded-xl overflow-hidden border border-white/10 relative shrink-0"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <img src={imageDataUrl} alt="Temporistics Result" className="w-full h-auto object-contain" />
+              <div className="w-full rounded-xl overflow-hidden border border-white/10 relative">
+                <img src={imageDataUrl} alt="Temporistics Result" className="w-full h-auto" />
               </div>

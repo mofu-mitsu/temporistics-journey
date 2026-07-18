@@ -345,13 +345,27 @@ export default function ResultScene({ data, onNext, final, onReset, logs = [] }:
                 <i className="fa-solid fa-xmark"></i>
               </button>
               
-              <h2 className="text-xl font-bold mb-6 border-b border-white/20 pb-4">🔬 行動ログ（観測データ）</h2>
+              <h2 className="text-xl font-bold mb-4 font-serif">診断ログ</h2>
               
-              <div className="space-y-4 text-sm leading-relaxed text-white/80 font-mono whitespace-pre-wrap">
-                {getLogText()}
+              <div className="space-y-4 mb-6 text-sm text-white/80">
+                {logs && logs.map((log, idx) => (
+                  <div key={idx} className="border-b border-white/10 pb-4 last:border-0">
+                    <p className="font-semibold text-white mb-1">【{log.sceneId}】</p>
+                    <p className="text-blue-300">行動: {log.actionDesc}</p>
+                    {log.darlingReply && (
+                      <p className="text-pink-300 mt-1">「{log.darlingReply}」</p>
+                    )}
+                  </div>
+                ))}
               </div>
-
-              <div className="mt-8 pt-4 border-t border-white/20 flex justify-end">
+              
+              <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-white/10">
+                <button
+                  onClick={() => setShowLogModal(false)}
+                  className="px-5 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors text-sm"
+                >
+                  閉じる
+                </button>
                 <button
                   onClick={handleCopyLog}
                   className="px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white transition-colors text-sm flex items-center"
@@ -378,8 +392,8 @@ export default function ResultScene({ data, onNext, final, onReset, logs = [] }:
               initial={{ y: 50, scale: 0.95 }}
               animate={{ y: 0, scale: 1 }}
               exit={{ y: 20, scale: 0.95 }}
-              className="bg-[#111] border border-white/20 text-white p-6 rounded-2xl shadow-2xl max-w-sm w-full relative flex flex-col items-center"
-              onClick={(e) => e.stopPropagation()}
+              className="bg-[#111] border border-white/20 text-white p-6 rounded-2xl shadow-2xl max-w-sm w-full max-h-[85vh] overflow-y-auto relative flex flex-col items-center"
+              /* Removed stopPropagation so tapping the modal background also closes it */
             >
               <button 
                 onClick={() => setShowImageModal(false)}
@@ -390,16 +404,19 @@ export default function ResultScene({ data, onNext, final, onReset, logs = [] }:
               
               <h2 className="text-lg font-bold mb-2">画像の保存</h2>
               <p className="text-xs text-white/70 mb-6 text-center">
-                画像を長押し（または右クリック）して<br/>「画像を保存」を選択してください。
+                画像を長押しして保存してね
               </p>
               
-              <div className="w-full rounded-xl overflow-hidden border border-white/10 relative">
-                <img src={imageDataUrl} alt="Temporistics Result" className="w-full h-auto" />
+              <div 
+                className="w-full rounded-xl overflow-hidden border border-white/10 relative shrink-0"
+                onClick={(e) => e.stopPropagation()} /* Prevent closing when tapping the image */
+              >
+                <img src={imageDataUrl} alt="Temporistics Result" className="w-full h-auto object-contain" />
               </div>
               
               <button
                 onClick={() => setShowImageModal(false)}
-                className="mt-6 px-6 py-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors text-sm w-full font-medium"
+                className="mt-6 px-6 py-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors text-sm w-full font-medium shrink-0"
               >
                 閉じる
               </button>
