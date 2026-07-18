@@ -82,7 +82,7 @@ export default function ResultScene({ data, onNext, final, onReset, logs = [] }:
       } else {
         setImageDataUrl(dataUrl);
         setShowImageModal(true);
-        toast.success("画像を生成しました。");
+        toast.success("長押しして保存してね");
       }
     } catch (err) {
       console.error('Failed to save image', err);
@@ -396,6 +396,13 @@ export default function ResultScene({ data, onNext, final, onReset, logs = [] }:
               <div className="w-full rounded-xl overflow-hidden border border-white/10 relative">
                 <img src={imageDataUrl} alt="Temporistics Result" className="w-full h-auto" />
               </div>
+              
+              <button
+                onClick={() => setShowImageModal(false)}
+                className="mt-6 px-6 py-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors text-sm w-full font-medium"
+              >
+                閉じる
+              </button>
             </motion.div>
           </motion.div>
         )}
